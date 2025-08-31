@@ -1,0 +1,23 @@
+# Core
+Django==5.2.*
+djangorestframework==3.15.*
+
+# Database
+psycopg2-binary==2.9.*
+
+# Celery
+celery==5.3.*
+
+# Redis
+redis==5.*
+
+# ASGI
+uvicorn[standard]==0.30.*
+
+# API Schema
+drf-spectacular
+
+# Dev / Tests
+pytest==8.3.*
+pytest-django==4.9.*
+factory-boy==3.3.*

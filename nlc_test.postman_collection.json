@@ -1,0 +1,83 @@
+{
+  "info": {
+    "name": "NLC Test API",
+    "description": "Collection of requests for testing the Django DRF API. Includes listing pages and retrieving page details.\nAll requests assume the server is running locally on http://127.0.0.1:8000/",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "e1e9c4e5-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+  },
+  "item": [
+    {
+      "name": "List Pages",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/pages/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["api", "pages", ""]
+        },
+        "description": "Get a paginated list of pages (default page size is 5)."
+      }
+    },
+    {
+      "name": "List Pages with pagination",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/pages/?page=2&page_size=3",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["api", "pages", ""],
+          "query": [
+            { "key": "page", "value": "2" },
+            { "key": "page_size", "value": "3" }
+          ]
+        },
+        "description": "Get the second page of results, with 3 items per page."
+      }
+    },
+    {
+      "name": "Page Detail",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://127.0.0.1:8000/api/pages/1/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["api", "pages", "1", ""]
+        },
+        "description": "Get details of a specific page by ID. \nEach request increments counters of attached content (Video/Audio)."
+      }
+    },
+    {
+      "name": "Admin login",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:8000/admin/login/",
+          "protocol": "http",
+          "host": ["127.0.0.1"],
+          "port": "8000",
+          "path": ["admin", "login", ""]
+        },
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            { "key": "username", "value": "admin", "type": "text" },
+            { "key": "password", "value": "password", "type": "text" }
+          ]
+        },
+        "description": "Example of login request to the Django admin site."
+      }
+    }
+  ]
+}

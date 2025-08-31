@@ -1,0 +1,38 @@
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+skip-string-normalization = false
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | \.migrations
+  | \.pytest_cache
+  | __pycache__
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+known_first_party = ["core", "project"]
+skip = [".venv", "migrations", "__pycache__"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "project.settings_test"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = "-v --reuse-db"
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = [
+    "E203",  # whitespace before ':', конфликтует с black
+    "W503",  # line break before binary operator, тоже конфликтует
+]
+exclude = [
+    ".git",
+    ".venv",
+    "__pycache__",
+    "migrations",
+    ".pytest_cache",
+]
