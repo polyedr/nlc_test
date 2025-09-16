@@ -19,6 +19,13 @@
 
 ---
 
+## Docker
+
+См. отдельную ветку [feature/docker](https://github.com/polyedr/nlc_test/tree/feature/docker)  
+для запуска проекта в контейнерах (Postgres, Redis, Celery, Django).
+
+---
+
 ## Требования
 
 - Python 3.12
@@ -168,11 +175,20 @@ python manage.py seed_demo \
 - `GET /api/pages/` — список страниц (пагинация, по умолчанию 5 на страницу).  
 - `GET /api/pages/<id>/` — детальная страница, контент в порядке `position`.  
   **Каждый вызов увеличивает счётчики у привязанного контента.**
+  
+### Пагинация
+
+Эндпоинт `/api/pages/` поддерживает стандартную пагинацию DRF.
+
+- Размер страницы по умолчанию: `DEFAULT_PAGE_SIZE = 5`
+- Можно изменить через параметр запроса `?page_size=...`
+- Максимально допустимое значение: `100`
 
 Примеры:
+
 ```bash
 curl http://127.0.0.1:8000/api/pages/
-curl "http://127.0.0.1:8000/api/pages/?page=2&page_size=3"
+curl http://127.0.0.1:8000/api/pages/?page=2&page_size=3
 curl http://127.0.0.1:8000/api/pages/1/
 ```
 

@@ -5,11 +5,11 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from project.core.models import Audio, Page, PageContent, Video
-from project.core.constants import (
+from core.constants import (
     CDN_SUBS_BASE,
     CDN_VIDEO_BASE,
 )
+from core.models import Audio, Page, PageContent, Video
 
 
 class Command(BaseCommand):
@@ -99,7 +99,8 @@ class Command(BaseCommand):
 
         self.stdout.write(
             self.style.SUCCESS(
-                f"Seeded {pages_count} pages, {len(videos)} videos, {len(audios)} audios."
+                f"Seeded {pages_count} pages, "
+                f"{len(videos)} videos, {len(audios)} audios."
             )
         )
 

@@ -6,9 +6,9 @@ from rest_framework import mixins, viewsets
 from rest_framework.response import Response
 
 from .constants import ALLOWED_CONTENT_MODELS, APP_LABEL_CORE
-from .tasks import increment_counters_async
 from .models import Page, PageContent
 from .serializers import PageDetailSerializer, PageListSerializer
+from .tasks import increment_counters_async
 
 
 class PageViewSet(
