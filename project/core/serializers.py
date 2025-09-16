@@ -4,8 +4,8 @@ from typing import Any, Dict, List
 
 from rest_framework import serializers
 
-from .models import Audio, Page, Video
 from .constants import ITEM_TYPE_AUDIO, ITEM_TYPE_VIDEO
+from .models import Audio, Page, Video
 
 
 class PageListSerializer(serializers.HyperlinkedModelSerializer):

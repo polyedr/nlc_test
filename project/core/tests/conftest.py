@@ -1,5 +1,6 @@
 # Fixtures
 import pytest
+
 from rest_framework.test import APIClient
 
 from core.models import Audio, Page, Video

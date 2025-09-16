@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Dict, Iterable, List, Tuple, Type
 
 from celery import shared_task
+
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import F
