@@ -7,6 +7,7 @@ from django.db.models import F
 
 @shared_task
 def increment_counters_task(pairs: list[tuple[int, int]]):
+    """Celery task to atomically increment `counter` fields for given objects."""
     from .models import (  # noqa: F401  (модели нужны только для ContentType)
         Audio,
         Video,
@@ -22,4 +23,5 @@ def increment_counters_task(pairs: list[tuple[int, int]]):
 
 
 def increment_counters_async(pairs: Iterable[Tuple[int, int]]):
+    """Helper to enqueue the Celery task for counter increments."""
     increment_counters_task.delay(list(pairs))

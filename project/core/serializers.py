@@ -4,6 +4,7 @@ from .models import Audio, Page, Video
 
 
 class PageListSerializer(serializers.HyperlinkedModelSerializer):
+    """Serializer for listing pages with minimal fields."""
     url = serializers.HyperlinkedIdentityField(
         view_name="page-detail", lookup_field="pk"
     )
@@ -14,6 +15,7 @@ class PageListSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class VideoSerializer(serializers.ModelSerializer):
+    """Serializer for video content objects."""
     type = serializers.SerializerMethodField()
 
     class Meta:
@@ -25,6 +27,7 @@ class VideoSerializer(serializers.ModelSerializer):
 
 
 class AudioSerializer(serializers.ModelSerializer):
+    """Serializer for audio content objects."""
     type = serializers.SerializerMethodField()
 
     class Meta:
@@ -36,6 +39,7 @@ class AudioSerializer(serializers.ModelSerializer):
 
 
 class PageDetailSerializer(serializers.ModelSerializer):
+    """Serializer for detailed page view with related content."""
     items = serializers.SerializerMethodField()
 
     class Meta:

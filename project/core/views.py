@@ -9,6 +9,9 @@ from .tasks import increment_counters_async
 class PageViewSet(
     mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet
 ):
+    """API viewset for listing and retrieving pages.
+    On detail view, increments counters of attached content via Celery task.
+    """
     queryset = Page.objects.all().prefetch_related("contents__content_type")
     serializer_class = PageListSerializer
 
