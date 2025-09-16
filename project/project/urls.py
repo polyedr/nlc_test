@@ -25,23 +25,20 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 
+
 urlpatterns = [
     # Admin
     path("admin/", admin.site.urls),
-
     # API (app routes)
     path("api/", include("core.urls")),
-
     # OpenAPI schema (JSON)
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
-
     # Swagger UI (served from the schema above)
     path(
         "api/schema/swagger-ui/",
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
-
     # ReDoc (also served from the schema)
     path(
         "api/schema/redoc/",

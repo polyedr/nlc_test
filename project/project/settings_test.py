@@ -1,6 +1,7 @@
 # project/project/settings_test.py
 from .settings import *  # base settings
 
+
 # --- DB: use SQLite for tests only ---
 DATABASES = {
     "default": {
