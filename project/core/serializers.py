@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import Any, Dict, List
+
 from rest_framework import serializers
 
 from .models import Audio, Page, Video
@@ -5,9 +9,7 @@ from .models import Audio, Page, Video
 
 class PageListSerializer(serializers.HyperlinkedModelSerializer):
     """Serializer for listing pages with minimal fields."""
-    url = serializers.HyperlinkedIdentityField(
-        view_name="page-detail", lookup_field="pk"
-    )
+    url = serializers.HyperlinkedIdentityField(view_name="page-detail", lookup_field="pk")
 
     class Meta:
         model = Page
@@ -22,7 +24,7 @@ class VideoSerializer(serializers.ModelSerializer):
         model = Video
         fields = ("id", "type", "title", "counter", "video_url", "subtitles_url")
 
-    def get_type(self, obj):
+    def get_type(self, obj: Video) -> str:
         return "video"
 
 
@@ -34,7 +36,7 @@ class AudioSerializer(serializers.ModelSerializer):
         model = Audio
         fields = ("id", "type", "title", "counter", "transcript")
 
-    def get_type(self, obj):
+    def get_type(self, obj: Audio) -> str:
         return "audio"
 
 
@@ -46,8 +48,8 @@ class PageDetailSerializer(serializers.ModelSerializer):
         model = Page
         fields = ("id", "title", "items")
 
-    def get_items(self, obj: Page):
-        items = []
+    def get_items(self, obj: Page) -> List[Dict[str, Any]]:
+        items: List[Dict[str, Any]] = []
         for pc in obj.contents.select_related("content_type").all():
             c = pc.content
             if isinstance(c, Video):
