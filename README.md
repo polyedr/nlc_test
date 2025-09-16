@@ -16,6 +16,7 @@
 - [Админка](#админка)
 - [Celery: фоновые инкременты](#celery-фоновые-инкременты)
 - [Тесты](#тесты)
+- [Docker](#docker)
 
 ---
 
@@ -151,14 +152,7 @@ python manage.py runserver
 python manage.py seed_demo --flush
 
 # Пример с параметрами
-python manage.py seed_demo \
-  --flush \
-  --pages 37 \
-  --videos 20 \
-  --audios 20 \
-  --min-items 2 \
-  --max-items 5 \
-  --seed 42
+python manage.py seed_demo   --flush   --pages 37   --videos 20   --audios 20   --min-items 2   --max-items 5   --seed 42
 ```
 
 ---
@@ -233,3 +227,51 @@ pytest
 - детальная страница + инкремент (`test_page_detail.py`).
 
 ---
+
+## Docker
+
+Для удобства подготовлена докеризация проекта.  
+Сервисы: **Django (web)**, **Postgres (db)**, **Redis (redis)**, **Celery worker (worker)**.  
+При старте автоматически создаётся суперпользователь `admin / admin` и база наполняется тестовыми данными.
+
+### Быстрый старт
+
+```bash
+git checkout feature/docker
+cp .env.docker.example .env.docker
+sudo docker compose up --build
+```
+
+После этого:
+- API: [http://localhost:8000/api/pages/](http://localhost:8000/api/pages/)  
+- Админка: [http://localhost:8000/admin/](http://localhost:8000/admin/) (логин/пароль: `admin / admin`)  
+
+### Сервисы
+
+- **web** — Django + Gunicorn
+- **db** — PostgreSQL 15 (внутри docker-сети)
+- **redis** — Redis 7
+- **worker** — Celery worker
+
+### Полезные команды
+
+- Пересобрать образы (после изменения зависимостей или entrypoint):
+  ```bash
+  sudo docker compose build web worker
+  sudo docker compose up -d
+  ```
+
+- Перезапустить контейнеры без пересборки:
+  ```bash
+  sudo docker compose restart
+  ```
+
+- Миграции вручную:
+  ```bash
+  sudo docker compose exec web python manage.py migrate
+  ```
+
+- Зайти в контейнер Django:
+  ```bash
+  sudo docker compose exec web bash
+  ```

@@ -5,11 +5,11 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from project.core.constants import (
+from core.constants import (
     CDN_SUBS_BASE,
     CDN_VIDEO_BASE,
 )
-from project.core.models import Audio, Page, PageContent, Video
+from core.models import Audio, Page, PageContent, Video
 
 
 class Command(BaseCommand):

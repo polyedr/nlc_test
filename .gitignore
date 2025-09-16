@@ -26,3 +26,14 @@ staticfiles/
 .coverage
 htmlcov/
 
+# Docker
+.env.docker
+.env.local
+docker-compose.override.yml
+*.log
+*.pid
+
+# Volumes / data
+pgdata/
+redisdata/
+
