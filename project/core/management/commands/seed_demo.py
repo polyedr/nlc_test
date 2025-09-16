@@ -5,7 +5,11 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from core.models import Audio, Page, PageContent, Video
+from project.core.models import Audio, Page, PageContent, Video
+from project.core.constants import (
+    CDN_SUBS_BASE,
+    CDN_VIDEO_BASE,
+)
 
 
 class Command(BaseCommand):
@@ -120,9 +124,9 @@ class Command(BaseCommand):
             videos.append(
                 Video(
                     title=f"Video #{i}",
-                    counter=random.randint(0, 3),  # small initial counters
-                    video_url=f"https://cdn.example.com/videos/v{i}.mp4",
-                    subtitles_url=f"https://cdn.example.com/subtitles/v{i}.vtt",
+                    counter=random.randint(0, 3),
+                    video_url=f"{CDN_VIDEO_BASE}/v{i}.mp4",
+                    subtitles_url=f"{CDN_SUBS_BASE}/v{i}.vtt",
                 )
             )
         Video.objects.bulk_create(videos)

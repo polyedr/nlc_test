@@ -11,19 +11,19 @@ def test_page_detail_increments_counters(
 ):
     settings.CELERY_TASK_ALWAYS_EAGER = True
     page = page_factory(title="Page")
-    v = video_factory(title="V", counter=0)
-    a = audio_factory(title="A", counter=1)
+    video = video_factory(title="V", counter=0)
+    audio = audio_factory(title="A", counter=1)
 
     PageContent.objects.create(
         page=page,
         content_type=ContentType.objects.get_for_model(Video),
-        object_id=v.id,
+        object_id=video.id,
         position=1,
     )
     PageContent.objects.create(
         page=page,
         content_type=ContentType.objects.get_for_model(Audio),
-        object_id=a.id,
+        object_id=audio.id,
         position=2,
     )
 
@@ -31,10 +31,10 @@ def test_page_detail_increments_counters(
     assert resp.status_code == 200
 
     # counters incremented
-    v.refresh_from_db()
-    a.refresh_from_db()
-    assert v.counter == 1
-    assert a.counter == 2
+    video.refresh_from_db()
+    audio.refresh_from_db()
+    assert video.counter == 1
+    assert audio.counter == 2
 
     # order and payload
     items = resp.data["items"]

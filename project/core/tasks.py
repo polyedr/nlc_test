@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Iterable, Tuple, Dict, List, Type
+from typing import Dict, Iterable, List, Tuple, Type
 
 from celery import shared_task
 from django.contrib.contenttypes.models import ContentType
@@ -16,7 +16,9 @@ def increment_counters_task(pairs: List[Tuple[int, int]]) -> None:
         by_ct.setdefault(ct_id, []).append(obj_id)
 
     for ct_id, ids in by_ct.items():
-        model: Type[models.Model] | None = ContentType.objects.get_for_id(ct_id).model_class()
+        model: Type[models.Model] | None = ContentType.objects.get_for_id(
+            ct_id
+        ).model_class()
         # Skip invalid content types or models without `counter`
         if model is None or not hasattr(model, "counter"):
             continue

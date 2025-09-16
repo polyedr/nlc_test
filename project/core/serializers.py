@@ -5,11 +5,15 @@ from typing import Any, Dict, List
 from rest_framework import serializers
 
 from .models import Audio, Page, Video
+from .constants import ITEM_TYPE_AUDIO, ITEM_TYPE_VIDEO
 
 
 class PageListSerializer(serializers.HyperlinkedModelSerializer):
     """Serializer for listing pages with minimal fields."""
-    url = serializers.HyperlinkedIdentityField(view_name="page-detail", lookup_field="pk")
+
+    url = serializers.HyperlinkedIdentityField(
+        view_name="page-detail", lookup_field="pk"
+    )
 
     class Meta:
         model = Page
@@ -18,6 +22,7 @@ class PageListSerializer(serializers.HyperlinkedModelSerializer):
 
 class VideoSerializer(serializers.ModelSerializer):
     """Serializer for video content objects."""
+
     type = serializers.SerializerMethodField()
 
     class Meta:
@@ -25,11 +30,12 @@ class VideoSerializer(serializers.ModelSerializer):
         fields = ("id", "type", "title", "counter", "video_url", "subtitles_url")
 
     def get_type(self, obj: Video) -> str:
-        return "video"
+        return ITEM_TYPE_VIDEO
 
 
 class AudioSerializer(serializers.ModelSerializer):
     """Serializer for audio content objects."""
+
     type = serializers.SerializerMethodField()
 
     class Meta:
@@ -37,11 +43,12 @@ class AudioSerializer(serializers.ModelSerializer):
         fields = ("id", "type", "title", "counter", "transcript")
 
     def get_type(self, obj: Audio) -> str:
-        return "audio"
+        return ITEM_TYPE_AUDIO
 
 
 class PageDetailSerializer(serializers.ModelSerializer):
     """Serializer for detailed page view with related content."""
+
     items = serializers.SerializerMethodField()
 
     class Meta:
